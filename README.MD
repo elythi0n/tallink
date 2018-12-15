@@ -1,4 +1,4 @@
-This is just a test demo! do not use this without permission.
+This is just a test demo! do not use this in production without asking permission.
 
 ### Usage (Fetch journeys)
 ```php
