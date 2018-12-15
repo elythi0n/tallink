@@ -13,7 +13,7 @@ $fetch_journeys = new Tallink();
   $fetch_journeys->fetchType = 'echo'; /* print type (print_r, var_dump, echo_single, echo) */
 $fetch_journeys = Tallink::fetch_journeys($fetch_journeys);
 
-echo $fetch_journeys /* prints full list of journeys */ 
+echo $fetch_journeys /* prints full list of journeys between dateFrom and dateTo */ 
 
 /*
 Gives you:
