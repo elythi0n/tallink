@@ -2,6 +2,8 @@ This is just a test demo! do not use this in production without asking permissio
 
 ### Usage (Fetch journeys)
 ```php
+<?php
+
 $fetch_journeys = new Tallink();
   $fetch_journeys->from = 'tal'; /* from station */
   $fetch_journeys->to = 'hel'; /* to station */
@@ -33,5 +35,7 @@ HEL
 3.5
 1
 */
+
+?>
 ```
 
