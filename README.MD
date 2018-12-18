@@ -18,7 +18,7 @@ $fetch_journeys = Tallink::fetch_journeys($fetch_journeys);
 echo $fetch_journeys /* prints full list of journeys between dateFrom and dateTo */ 
 
 /*
-Gives you: and all the rest in between dateFrom and dateTo
+Gives you:
 
 31 
 DTER
@@ -34,6 +34,8 @@ HEL
 2018-12-15T12:30
 3.5
 1
+
+and all the rest in between dateFrom and dateTo
 */
 
 ?>
