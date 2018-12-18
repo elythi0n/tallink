@@ -1,6 +1,6 @@
 This is just a test demo! do not use this in production without asking permission. (inofficial)
 
-### Fetch journeys
+### Journeys
 ```php
 <?php
 
@@ -39,7 +39,7 @@ HEL
 ?>
 ```
 
-### Fetch land services 
+### Land services 
 
 ```php
 <?php
