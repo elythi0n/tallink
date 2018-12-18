@@ -1,5 +1,13 @@
 This is just a test demo! do not use this in production without asking permission. (inofficial)
 
+### Include Class
+```php
+<?php
+  require_once 'classes/Tallink.class.php';
+?>
+```
+
+
 ### Journeys
 ```php
 <?php
