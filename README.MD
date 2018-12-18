@@ -1,6 +1,6 @@
-This is just a test demo! do not use this in production without asking permission.
+This is just a test demo! do not use this in production without asking permission. (inofficial)
 
-### Usage (Fetch journeys)
+### Fetch journeys
 ```php
 <?php
 
@@ -18,7 +18,7 @@ $fetch_journeys = Tallink::fetch_journeys($fetch_journeys);
 echo $fetch_journeys /* prints full list of journeys between dateFrom and dateTo */ 
 
 /*
-Gives you:
+Gives you: and all the rest in between dateFrom and dateTo
 
 31 
 DTER
@@ -39,3 +39,17 @@ HEL
 ?>
 ```
 
+### Fetch land services 
+
+```php
+<?php
+$fetch_land_services = new Tallink();
+  $fetch_land_services->locale = 'en'; /* locale */
+  $fetch_land_services->country = ''; /* country */
+  $fetch_land_services->fetchType = 'echo'; /* fetchType */
+  $fetch_land_services->outwardSailId = '1633780'; /* outwardSailId */
+$fetch_land_services = Tallink::fetch_land_services($fetch_land_services);
+
+echo $fetch_land_services; /* prints all the land services during that visit */
+?>
+```
