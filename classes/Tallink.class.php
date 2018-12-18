@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Tallink API Class (just a test)
+ * Tallink API Class
  *
  * PHP version 7
  *
@@ -17,9 +17,14 @@
 class Tallink
 {
   /**
-   * @var url api url
+   * @var timetables_url url
    */
   private static $timetables_url = 'https://booking.tallink.com/api/timetables';
+
+  /**
+   * @var land_services_url url
+   */
+  private static $land_url = 'https://booking.tallink.com/api/land';
 
   /**
    * @var from station
@@ -79,12 +84,14 @@ class Tallink
     * @param string $locale    language
     * @param string $country   country
     * @param string $overnight overnight
+    * @param string $voyageType voyageType (SHUTTLE/CRUISE)
     * @param string $dateFrom  from date
     * @param string $dateTo    to date
     * @return array
     */
   public static function fetch_journeys(Tallink $fetch_journeys)
   {
+    if($fetch_journeys->fetchType == 'json') { header('Content-type: application/json'); }
     /* check required parameters */
     if(isset($fetch_journeys->from) && isset($fetch_journeys->to) && isset($fetch_journeys->dateFrom) && isset($fetch_journeys->dateTo) && isset($fetch_journeys->voyageType) && isset($fetch_journeys->fetchType))
     {
@@ -112,8 +119,6 @@ class Tallink
                 new DateInterval('P1D'),
                 new DateTime($fetch_journeys->dateTo)
              );
-      /* count the days between dateFrom and dateTo, this is to know how many times to loop throught journeys */
-      $count_period = iterator_count($period);
       /* turn dateFrom and dateTo into DateTime objects */
       $begin = new DateTime($fetch_journeys->dateFrom);
       $end = new DateTime($fetch_journeys->dateTo);
@@ -121,12 +126,14 @@ class Tallink
       $daterange = new DatePeriod($begin, new DateInterval('P1D'), $end);
 
       /* parse each journey */
+      $date_data = array();
       $dc = 0; /* date counter */
       foreach($daterange as $date)
       {
         /* convert date to usable format */
         $convert_date = $date->format("Y-m-d");
         /* foreach trip turing that day */
+        $trip_data = array();
         $tc = 0;
         foreach($obj['trips'][$convert_date]['outwards'] as $trip)
         {
@@ -151,6 +158,7 @@ class Tallink
             'shipCode' => $trip['shipCode'],
             'vehiclePrice' => $trip['vehiclePrice']
            );
+
            switch($fetch_journeys->fetchType)
            {
              default:
@@ -160,11 +168,6 @@ class Tallink
 
              case "var_dump":
                var_dump($data);
-             break;
-
-             case 'return':
-                /* return each trip arrivalIsoDate */
-               return $trip['arrivalIsoDate'];
              break;
 
              case 'echo':
@@ -180,5 +183,73 @@ class Tallink
 
   }
 
+  /**
+    * Fetch land services
+    *
+    * @param string locale           locale
+    * @param string country          country (can be empty)
+    * @param string outwardSailId    language
+    * @return array
+    */
+  public static function fetch_land_services(Tallink $fetch_land_services)
+  {
+    /* check required parameters */
+    if(isset($fetch_land_services->locale) && isset($fetch_land_services->outwardSailId))
+    {
+      /* parameter bindings */
+      $bindings = array(
+      'locale' => $fetch_land_services->locale,
+      'country' => $fetch_land_services->country,
+      'outwardSailId' => $fetch_land_services->outwardSailId
+      );
+      /* parameters */
+      $parameters = http_build_query($bindings);
+      /* full url */
+      $api_url = static::$land_url.'?'.$parameters;
+      /* Get Contents */
+      $query = file_get_contents($api_url);
+      /* Decode JSON */
+      $obj = json_decode($query, true);
+
+      foreach($obj['landServices'] as $land_service)
+      {
+
+        $data = array(
+          'title' => $land_service['title'],
+          'imageUrl' => $land_service['imageUrl'],
+          'description' => $land_service['description'],
+          'eventTimes' => $land_service['eventTimes']
+         );
+
+         switch($fetch_land_services->fetchType)
+         {
+           default:
+           case "print_r":
+             print_r($data);
+           break;
+
+           case "var_dump":
+             var_dump($data);
+           break;
+
+           case 'echo':
+              /* return each trip */
+            $data_echo = array(
+              'title' => $land_service['title'],
+              'imageUrl' => '<img src="'.$land_service['imageUrl'].'"">',
+              'description' => $land_service['description']
+             );
+             echo implode("<br> ", $data_echo);
+           break;
+         }
+      }
+
+
+    }
+  }
+
 
 }
+
+
+?>
