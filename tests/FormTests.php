@@ -167,7 +167,7 @@ include('Tallink.class.php');
 	                  <td><?php echo $row["cityTo"]; ?></td>
 	                  <td><?php echo $row["duration"]; ?>h</td>
 	                  <td><?php if($row["hasRoom"] == '1') { echo 'Yes'; } else { echo 'No'; } ?></td>
-	                  <td><?php if($row["isDisabled"] == '1') { echo 'Yes'; } else { echo 'No'; } ?></td>
+	                  <td><?php if($row["isDisabled"] == '1') { echo 'No'; } else { echo 'Yes'; } ?></td>
 	                  <td><?php echo $row["isOvernight"]; ?></td>
 	                  <td><?php echo $row["isVoucherApplicable"]; ?></td>
 	                  <td><?php echo $row["marketingMessage"]["description"]; ?></td>
