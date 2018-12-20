@@ -1,6 +1,6 @@
 <?php
 
-include('classes/Tallink.class.php');
+include('Tallink.class.php');
 
 /* fetch journeys from tallinn to helsinki between dateFrom and dateTo */
 $fetch_journeys = new Tallink();
@@ -14,6 +14,9 @@ $fetch_journeys = new Tallink();
   $fetch_journeys->fetchType = 'echo';
 $fetch_journeys = Tallink::fetch_journeys($fetch_journeys);
 
-echo $fetch_journeys; /* prints all journeys between dateFrom and dateTo */
+foreach($fetch_journeys as $row)
+{
+	echo '<br>'.$row["shipCode"]; /* prints out each journey's shipCode */
+}
 
 ?>
