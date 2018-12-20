@@ -41,7 +41,6 @@ foreach($fetch_journeys as $row)
 $fetch_land_services = new Tallink();
   $fetch_land_services->locale = 'en'; /* locale */
   $fetch_land_services->country = ''; /* country */
-  $fetch_land_services->fetchType = 'echo'; /* fetchType */
   $fetch_land_services->outwardSailId = '1633780'; /* outwardSailId */
 $fetch_land_services = Tallink::fetch_land_services($fetch_land_services);
 
