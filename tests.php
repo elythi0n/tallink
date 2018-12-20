@@ -11,7 +11,6 @@ $fetch_journeys = new Tallink();
   $fetch_journeys->voyageType = 'SHUTTLE';
   $fetch_journeys->dateFrom = '2018-12-15'; /* from date */
   $fetch_journeys->dateTo = '2018-12-18'; /* to date */
-  $fetch_journeys->fetchType = 'echo';
 $fetch_journeys = Tallink::fetch_journeys($fetch_journeys);
 
 foreach($fetch_journeys as $row)
