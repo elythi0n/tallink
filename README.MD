@@ -1,9 +1,10 @@
 This is just a test demo! do not use this in production without asking permission. (inofficial)
 
-### Include Class
+### Usage
 ```php
 <?php
   require_once 'classes/Tallink.class.php';
+  /* or use autoloader */
 ?>
 ```
 
@@ -12,38 +13,48 @@ This is just a test demo! do not use this in production without asking permissio
 ```php
 <?php
 
+include('Tallink.class.php');
+
+/* fetch journeys from tallinn to helsinki between dateFrom and dateTo */
 $fetch_journeys = new Tallink();
-  $fetch_journeys->from = 'tal'; /* from station */
-  $fetch_journeys->to = 'hel'; /* to station */
-  $fetch_journeys->oneWay = true; /* true or false */
-  $fetch_journeys->locale = 'en'; /* locale */
-  $fetch_journeys->voyageType = 'SHUTTLE'; /* voyage type */
-  $fetch_journeys->dateFrom = '2018-12-15'; /* date from */
-  $fetch_journeys->dateTo = '2018-12-18'; /* date to */
-  $fetch_journeys->fetchType = 'echo'; /* print type (print_r, var_dump, echo_single, echo) */
+  $fetch_journeys->from = 'tal';
+  $fetch_journeys->to = 'hel';
+  $fetch_journeys->oneWay = true;
+  $fetch_journeys->locale = 'en';
+  $fetch_journeys->voyageType = 'SHUTTLE';
+  $fetch_journeys->dateFrom = '2018-12-15'; /* from date */
+  $fetch_journeys->dateTo = '2018-12-18'; /* to date */
 $fetch_journeys = Tallink::fetch_journeys($fetch_journeys);
 
-echo $fetch_journeys /* prints full list of journeys between dateFrom and dateTo */ 
+foreach($fetch_journeys as $row)
+{
+	echo '<br>'.$row["shipCode"]; /* prints out each journey's shipCode */
+}
 
 /*
 Gives you:
 
-31 
-DTER
-LSA2
-0
-1635583
-TAL-HEL
-Tallinn-Helsinki
+MEGASTAR
 STAR
-2018-12-15T16:00
-TAL
-HEL
-2018-12-15T12:30
-3.5
-1
-
-and all the rest in between dateFrom and dateTo
+EUROPA
+MEGASTAR
+STAR
+MEGASTAR
+STAR
+MEGASTAR
+STAR
+EUROPA
+MEGASTAR
+STAR
+MEGASTAR
+STAR
+MEGASTAR
+STAR
+EUROPA
+MEGASTAR
+STAR
+MEGASTAR
+STAR
 */
 
 ?>
