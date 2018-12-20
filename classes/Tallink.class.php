@@ -137,7 +137,7 @@ class Tallink
         $tc = 0;
         foreach($obj['trips'][$convert_date]['outwards'] as $trip)
         {
-          $data = array(
+          $data[] = array(
             'arrivalIsoDate' => $trip['arrivalIsoDate'],
             'cityFrom' => $trip['cityFrom'],
             'cityTo' => $trip['cityTo'],
@@ -158,29 +158,13 @@ class Tallink
             'shipCode' => $trip['shipCode'],
             'vehiclePrice' => $trip['vehiclePrice']
            );
-
-           switch($fetch_journeys->fetchType)
-           {
-             default:
-             case "print_r":
-               print_r($data);
-             break;
-
-             case "var_dump":
-               var_dump($data);
-             break;
-
-             case 'echo':
-                /* return each trip */
-               echo implode("<br> ", $data);
-             break;
-           }
+        }
           $tc++;
         }
         $dc++;
-      }
-    }
-
+     }
+    
+    return $data;
   }
 
   /**
