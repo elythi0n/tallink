@@ -1,74 +1,32 @@
 <?php
-include('../Tallink.class.php');
+include('../classes/Tallink.class.php');
 
+
+$page_title = 'Find All Journeys - Tallink API Demo';
+$dashboard_title = 'Find All Journeys';
+$current_page = 'index';
 ?>
 
 
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../../../favicon.ico">
-
-    <title>Tallink Demo</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/4.0/examples/dashboard/dashboard.css" rel="stylesheet">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <?php include("includes/header.php"); ?>
   </head>
 
   <body>
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Tallink PHP Demo</a>
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Tallink API Demo</a>
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
     </nav>
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">
-                  <span data-feather="home"></span>
-                  API Demo <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="https://github.com/marcosraudkett/tallink">
-                  <span data-feather="github"></span>
-                  Fork on GitHub
-                </a>
-              </li>
-            </ul>
-
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>More Demos</span>
-              <a class="d-flex align-items-center text-muted" href="https://github.com/marcosraudkett/tallink">
-                <span data-feather="plus-circle"></span>
-              </a>
-            </h6>
-            <ul class="nav flex-column mb-2">
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="info"></span>
-                  Coming soon
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        <?php include("includes/navbar.php"); ?>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-            <h1 class="h2">Cheapest Ferry</h1>
+            <h1 class="h2"><?php echo $dashboard_title; ?></h1>
           </div>
 
           <form method="GET" action="">
@@ -100,13 +58,13 @@ include('../Tallink.class.php');
 
           	<input type="submit" class="btn btn-primary" value="Find Journeys"> 
 
-  			<input type="hidden" name="locale" value="en">
-  			<input type="hidden" name="voyageType" value="SHUTTLE">
+      			<input type="hidden" name="locale" value="en">
+      			<input type="hidden" name="voyageType" value="SHUTTLE">
           </form>
 
           <br>
 
-          <h2>Journeys</h2>
+          <h2>Results</h2>
           <div class="table-responsive">
             <table id="journeys" class="table table-striped table-sm">
               <thead>
@@ -119,9 +77,6 @@ include('../Tallink.class.php');
                   <th>Duration</th> <!-- duration -->
                   <th>Has Room</th> <!-- hasRoom -->
                   <th>Available?</th> <!-- isDisabled -->
-                  <th>Overnight?</th> <!-- isOvernight -->
-                  <th>Voucher Applicable</th> <!-- isVoucherApplicable -->
-                  <th>Marketing Message</th> <!-- marketingMessage -->
                   <th>Price</th> <!-- personPrice -->
                   <th>Pier From</th> <!-- pierFrom -->
                   <th>Pier To</th> <!-- pierTo -->
@@ -161,16 +116,13 @@ include('../Tallink.class.php');
 	    	?>
 	                <tr>
 	                  <td><?php echo $row["sailId"]; ?></td>
-	                  <td><?php echo $row["departureIsoDate"]; ?></td>
-	                  <td><?php echo $row["arrivalIsoDate"]; ?></td>
+	                  <td><?php echo ucwords(strftime('%d.%m.%Y %H:%M', strtotime($row["departureIsoDate"]))); ?></td>
+                    <td><?php echo ucwords(strftime('%d.%m.%Y %H:%M', strtotime($row["arrivalIsoDate"]))); ?></td>
 	                  <td><?php echo $row["cityFrom"]; ?></td>
 	                  <td><?php echo $row["cityTo"]; ?></td>
 	                  <td><?php echo $row["duration"]; ?>h</td>
 	                  <td><?php if($row["hasRoom"] == '1') { echo 'Yes'; } else { echo 'No'; } ?></td>
 	                  <td><?php if($row["isDisabled"] == '1') { echo 'No'; } else { echo 'Yes'; } ?></td>
-	                  <td><?php echo $row["isOvernight"]; ?></td>
-	                  <td><?php echo $row["isVoucherApplicable"]; ?></td>
-	                  <td><?php echo $row["marketingMessage"]["description"]; ?></td>
 	                  <td><?php echo $row["personPrice"]; ?>€</td>
 	                  <td><?php echo $row["pierFrom"]; ?></td>
 	                  <td><?php echo $row["pierTo"]; ?></td>
@@ -178,7 +130,7 @@ include('../Tallink.class.php');
 	                  <td><?php echo $row["sailPackageCode"]; ?></td>
 	                  <td><?php echo $row["sailPackageName"]; ?></td>
 	                  <td><?php echo $row["shipCode"]; ?></td>
-	                  <td><?php echo $row["vehiclePrice"]; ?>€</td>
+	                  <td><a href="javascript:void(0);" data-sailId="<?php echo $row["sailId"]; ?>" class="vehicle-prices">Get Prices</a></td>
 	                </tr>
 	                <?php } 
 	            } else {
@@ -205,20 +157,31 @@ include('../Tallink.class.php');
       </div>
     </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"></script>
-    <script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
-
-    <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <?php include("includes/footer.php"); ?>
     <script>
+      $(document.body).on('click', '.vehicle-prices',function(){
+        let sailId = $(this).attr("data-sailId");
+        let dataString = 'sailId=' + sailId;
+        $.ajax({
+          'url': 'includes/vehicle-prices.php',
+          'type': 'GET',
+          'data': dataString,
+          beforeSend: function (data) {
+            $("#vehiclePrice").remove();
+          },
+          success: function(data) {
+            $("body").append(data);
+            //setTimeout( function(){
+
+              $("#vehiclePrice").modal("toggle");
+            //}, 1500);
+          },
+          error: function() {
+            console.log("fail");
+          }
+        })
+    });
+
       feather.replace()
 
       $( function() {
@@ -234,7 +197,9 @@ include('../Tallink.class.php');
   } );
 
       $(document).ready(function() {
-	    $('#journeys').DataTable();
+	    $('#journeys').DataTable({
+        'order': [[1, 'asc']]
+      });
 	  });
 
 	  $( function() {
@@ -268,38 +233,6 @@ include('../Tallink.class.php');
 	      return date;
 	    }
 	  } );
-    </script>
-
-    <!-- Graphs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
-    <script>
-      var ctx = document.getElementById("myChart");
-      var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          datasets: [{
-            data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-            lineTension: 0,
-            backgroundColor: 'transparent',
-            borderColor: '#007bff',
-            borderWidth: 4,
-            pointBackgroundColor: '#007bff'
-          }]
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: false
-              }
-            }]
-          },
-          legend: {
-            display: false,
-          }
-        }
-      });
     </script>
   </body>
 </html>
