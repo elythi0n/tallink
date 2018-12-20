@@ -1,5 +1,5 @@
 <?php
-include('Tallink.class.php');
+include('../Tallink.class.php');
 
 ?>
 
