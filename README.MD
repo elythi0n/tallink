@@ -13,8 +13,6 @@ This is just a test demo! do not use this in production without asking permissio
 ```php
 <?php
 
-include('Tallink.class.php');
-
 /* fetch journeys from tallinn to helsinki between dateFrom and dateTo */
 $fetch_journeys = new Tallink();
   $fetch_journeys->from = 'tal';
