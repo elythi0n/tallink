@@ -160,10 +160,9 @@ class Tallink
            );
         }
           $tc++;
-        }
-        $dc++;
-     }
-    
+      }
+      $dc++;
+    }
     return $data;
   }
 
@@ -197,39 +196,93 @@ class Tallink
 
       foreach($obj['landServices'] as $land_service)
       {
-
-        $data = array(
+        $data[] = array(
           'title' => $land_service['title'],
           'imageUrl' => $land_service['imageUrl'],
           'description' => $land_service['description'],
           'eventTimes' => $land_service['eventTimes']
          );
-
-         switch($fetch_land_services->fetchType)
-         {
-           default:
-           case "print_r":
-             print_r($data);
-           break;
-
-           case "var_dump":
-             var_dump($data);
-           break;
-
-           case 'echo':
-              /* return each trip */
-            $data_echo = array(
-              'title' => $land_service['title'],
-              'imageUrl' => '<img src="'.$land_service['imageUrl'].'"">',
-              'description' => $land_service['description']
-             );
-             echo implode("<br> ", $data_echo);
-           break;
-         }
       }
-
-
     }
+    return $data;
+  }
+
+  /**
+   *
+   * Get stations
+   *
+   * @return array
+   */
+  public static function stations()
+  {
+
+    /* stations */
+    $stations = '"Helsinki", 
+      "Tallinn", 
+      "Stockholm", 
+      "Turku", 
+      "Riga", 
+      "Åland", 
+      "Visby"';
+
+    return $stations;
+
+  }
+
+  /**
+   *
+   * Get station id by name
+   *
+   * @param $station_name
+   * @return value
+   */
+  public static function get_station_id_by_name($station_name)
+  {
+
+    /* stations */
+    $stations = array(
+      'hel' => 'Helsinki', 
+      'tal' => 'Tallinn', 
+      'sto' => 'Stockholm', 
+      'tur' => 'Turku', 
+      'rig' => 'Riga', 
+      'ala' => 'Åland', 
+      'vis' => 'Visby'
+    );
+
+    return array_search($station_name, $stations , true);
+
+  }
+
+  /**
+   *
+   * Check if station exists
+   *
+   * @param $station
+   * @return boolean true / false
+   */
+  public static function check_station_exists($station)
+  {
+
+    /* stations */
+    $stations = array(
+      'hel' => 'Helsinki', 
+      'tal' => 'Tallinn', 
+      'sto' => 'Stockholm', 
+      'tur' => 'Turku', 
+      'rig' => 'Riga', 
+      'ala' => 'Åland', 
+      'vis' => 'Visby'
+    );
+
+    $search = array_search($station, $stations);
+    if($search == true)
+    {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
 
