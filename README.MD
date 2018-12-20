@@ -44,6 +44,10 @@ $fetch_land_services = new Tallink();
   $fetch_land_services->outwardSailId = '1633780'; /* outwardSailId */
 $fetch_land_services = Tallink::fetch_land_services($fetch_land_services);
 
-echo $fetch_land_services; /* prints all the land services during that visit */
+foreach($fetch_land_services as $row)
+{
+	echo $row["title"].'<br>'; /* prints each land service title for that trip */
+	echo $row["description"].'<br>'; /* prints each land service description for that trip */
+}
 ?>
 ```
