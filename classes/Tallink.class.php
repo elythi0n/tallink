@@ -211,7 +211,7 @@ class Tallink
    *
    * Get stations
    *
-   * @return array
+   * @return string
    */
   public static function stations()
   {
