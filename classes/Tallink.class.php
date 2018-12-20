@@ -79,15 +79,15 @@ class Tallink
   /**
     * Fetch journeys
     *
-    * @param string $from      from which station
-    * @param string $to        to which station
-    * @param string $locale    language
-    * @param string $country   country
-    * @param string $overnight overnight
-    * @param string $voyageType voyageType (SHUTTLE/CRUISE)
-    * @param string $dateFrom  from date
-    * @param string $dateTo    to date
-    * @return array
+    * @param string  $from       from which station -required
+    * @param string  $to         to which station -required
+    * @param string  $locale     language -required
+    * @param string  $country    country -required
+    * @param boolean $overnight  overnight -required
+    * @param string  $voyageType voyageType (SHUTTLE/CRUISE) -required
+    * @param date    $dateFrom   from date (format: yyyy-mm-dd) -required
+    * @param date    $dateTo     to date (format: yyyy-mm-dd) -required
+    * @return array (journeys between $dateFrom and $dateTo)
     */
   public static function fetch_journeys(Tallink $fetch_journeys)
   {
@@ -169,10 +169,10 @@ class Tallink
   /**
     * Fetch land services
     *
-    * @param string locale           locale
-    * @param string country          country (can be empty)
-    * @param string outwardSailId    language
-    * @return array
+    * @param string locale           locale (required)
+    * @param string country          country (not required)
+    * @param string outwardSailId    outwardSailId (required)
+    * @return array (land services for outwardSailId journey)
     */
   public static function fetch_land_services(Tallink $fetch_land_services)
   {
