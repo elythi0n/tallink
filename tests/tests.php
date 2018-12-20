@@ -1,6 +1,6 @@
 <?php
 
-include('Tallink.class.php');
+include('../Tallink.class.php');
 
 /* fetch journeys from tallinn to helsinki between dateFrom and dateTo */
 $fetch_journeys = new Tallink();
