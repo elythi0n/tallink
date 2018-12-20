@@ -51,3 +51,23 @@ foreach($fetch_land_services as $row)
 }
 ?>
 ```
+
+### Get station id by name 
+
+```php
+<?php
+  $station_name = 'Tallinn';
+  $get_station_id_by_name = Tallink::get_station_id_by_name($station_name);
+  echo $get_station_id_by_name /* returns 'tal' */
+?>
+```
+
+### Check if station exists
+
+```php
+<?php
+  $station = 'Tallinn';
+  $check_station_exists = Tallink::check_station_exists($station);
+  echo $check_station_exists /* returns 1 */
+?>
+```
