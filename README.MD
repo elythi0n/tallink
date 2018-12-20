@@ -31,32 +31,6 @@ foreach($fetch_journeys as $row)
 	echo '<br>'.$row["shipCode"]; /* prints out each journey's shipCode */
 }
 
-/*
-Gives you:
-
-MEGASTAR
-STAR
-EUROPA
-MEGASTAR
-STAR
-MEGASTAR
-STAR
-MEGASTAR
-STAR
-EUROPA
-MEGASTAR
-STAR
-MEGASTAR
-STAR
-MEGASTAR
-STAR
-EUROPA
-MEGASTAR
-STAR
-MEGASTAR
-STAR
-*/
-
 ?>
 ```
 
