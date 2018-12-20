@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Tallink API Class
  *
@@ -13,69 +12,60 @@
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @version    0.0.1
  */
-
 class Tallink
 {
   /**
    * @var timetables_url url
    */
   private static $timetables_url = 'https://booking.tallink.com/api/timetables';
-
   /**
    * @var land_services_url url
    */
   private static $land_url = 'https://booking.tallink.com/api/land';
-
+  /**
+   * @var vehicle prices url
+   */
+  private static $vehicle_url = 'https://booking.tallink.com/api/vehicles';
   /**
    * @var from station
    */
   public $from;
-
   /**
    * @var to station
    */
   public $to;
-
   /**
    * @var locale
    */
   public $locale;
-
   /**
    * @var country
    */
   public $country;
-
   /**
    * @var overnight
    */
   public $overnight;
-
   /**
    * @var dateFrom date
    */
   public $dateFrom;
-
   /**
    * @var dateTo date
    */
   public $dateTo;
-
   /**
    * @var voyageType
    */
   public $voyageType;
-
   /**
    * @var oneWay boolean
    */
   public $oneWay;
-
   /**
    * @var fetchType 1 or 2
    */
   public $fetchType;
-
   /**
     * Fetch journeys
     *
@@ -124,7 +114,6 @@ class Tallink
       $end = new DateTime($fetch_journeys->dateTo);
       /* daterange (for foreach) to know each date that we would be looping through */
       $daterange = new DatePeriod($begin, new DateInterval('P1D'), $end);
-
       /* parse each journey */
       $date_data = array();
       $dc = 0; /* date counter */
@@ -167,6 +156,48 @@ class Tallink
   }
 
   /**
+    * Fetch vehicle prices
+    *
+    * @param string locale           locale (required)
+    * @param string country          country (not required)
+    * @param string outwardSailId    outwardSailId (required)
+    * @return array (vehicle prices for outwardSailId journey)
+    */
+  public static function fetch_vehicle_prices($locale, $country, $outwardSailId)
+  {
+
+    /* check required parameters */
+    if(isset($locale) && isset($outwardSailId))
+    {
+      /* parameter bindings */
+      $bindings = array(
+      'locale' => $locale,
+      'country' => $country,
+      'outwardSailId' => $outwardSailId
+      );
+      /* parameters */
+      $parameters = http_build_query($bindings);
+      /* full url */
+      $api_url = static::$vehicle_url.'?'.$parameters;
+      /* Get Contents */
+      $query = file_get_contents($api_url);
+      /* Decode JSON */
+      $obj = json_decode($query, true);
+      foreach($obj['vehicles'] as $vehicle)
+      {
+        $data[] = array(
+          'carCategory' => $vehicle['carCategory'],
+          'licensePlates' => $vehicle['licensePlates'],
+          'outwardDetails' => $vehicle['outwardDetails'],
+          'returnDetails' => $vehicle['returnDetails']
+         );
+      }
+    }
+    return $data;
+
+  }
+
+  /**
     * Fetch land services
     *
     * @param string locale           locale (required)
@@ -193,7 +224,6 @@ class Tallink
       $query = file_get_contents($api_url);
       /* Decode JSON */
       $obj = json_decode($query, true);
-
       foreach($obj['landServices'] as $land_service)
       {
         $data[] = array(
@@ -206,7 +236,6 @@ class Tallink
     }
     return $data;
   }
-
   /**
    *
    * Get stations
@@ -215,7 +244,6 @@ class Tallink
    */
   public static function stations()
   {
-
     /* stations */
     $stations = '"Helsinki", 
       "Tallinn", 
@@ -224,11 +252,8 @@ class Tallink
       "Riga", 
       "Åland", 
       "Visby"';
-
     return $stations;
-
   }
-
   /**
    *
    * Get station id by name
@@ -238,7 +263,6 @@ class Tallink
    */
   public static function get_station_id_by_name($station_name)
   {
-
     /* stations */
     $stations = array(
       'hel' => 'Helsinki', 
@@ -249,11 +273,8 @@ class Tallink
       'ala' => 'Åland', 
       'vis' => 'Visby'
     );
-
     return array_search($station_name, $stations , true);
-
   }
-
   /**
    *
    * Check if station exists
@@ -263,7 +284,6 @@ class Tallink
    */
   public static function check_station_exists($station)
   {
-
     /* stations */
     $stations = array(
       'hel' => 'Helsinki', 
@@ -274,7 +294,6 @@ class Tallink
       'ala' => 'Åland', 
       'vis' => 'Visby'
     );
-
     $search = array_search($station, $stations);
     if($search == true)
     {
@@ -282,11 +301,6 @@ class Tallink
     } else {
       return false;
     }
-
   }
-
-
 }
-
-
 ?>
