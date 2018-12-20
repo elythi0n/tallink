@@ -50,6 +50,24 @@ foreach($fetch_land_services as $row)
 ?>
 ```
 
+### Vehicle Prices
+
+```php
+<?php
+$sailId = '1610238';
+$vehiclePrice = Tallink::fetch_vehicle_prices('en', 'fi', $sailId); 
+
+if($vehiclePrice != null) {
+	foreach($vehiclePrice as $row_vechicle)
+	{
+		echo $row_vechicle["carCategory"]; /* prints each car category type */
+		echo $row_vechicle["outwardDetails"]['availability']; /* prints each availability */
+		echo $row_vechicle["outwardDetails"]['price']; /* prints each price */
+	}
+}
+?>
+```
+
 ### Get station id by name 
 
 ```php
