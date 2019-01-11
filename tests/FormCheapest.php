@@ -169,6 +169,7 @@ $current_page = 'cheapest';
 
     <?php include("includes/footer.php"); ?>
     <script>
+      /* fetch vehicle prices */
       $(document.body).on('click', '.vehicle-prices',function(){
           let sailId = $(this).attr("data-sailId");
           let dataString = 'sailId=' + sailId;
@@ -192,6 +193,7 @@ $current_page = 'cheapest';
           })
       });
 
+      /* fetch land services */
       $(document.body).on('click', '.land-services',function(){
           let sailId = $(this).attr("data-sailId");
           let dataString = 'sailId=' + sailId;
@@ -214,10 +216,12 @@ $current_page = 'cheapest';
             }
           })
       });
-
+	
+      /* replace feather icons */
       feather.replace()
 
       $( function() {
+    /* autocomplete stations */
     var availableTags = [
       <?php echo Tallink::stations(); ?>
     ];
