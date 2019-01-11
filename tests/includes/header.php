@@ -3,7 +3,11 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title><?php echo $page_title; ?></title>
+if(isset($page_title)) {
+  <title><?php echo $page_title; ?></title>
+} else {
+  <title>Dashboard</title>
+}
 
 <!-- Bootstrap core CSS -->
 <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
