@@ -163,7 +163,7 @@ class Tallink
     * @param string outwardSailId    outwardSailId (required)
     * @return array (vehicle prices for outwardSailId journey)
     */
-  public static function fetch_vehicle_prices($locale, $country, $outwardSailId)
+  public static function fetch_vehicle_prices($locale, $country = '', $outwardSailId)
   {
 
     /* check required parameters */
