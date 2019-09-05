@@ -33,6 +33,31 @@ foreach($fetch_journeys as $row)
 	echo '<br>'.$row["shipCode"]; /* prints out each journey's shipCode */
 }
 
+/* 
+List of data you can print:
+
+- "arrivalIsoDate"
+- "cityFrom"
+- "cityTo"
+- "departureIsoDate"
+- "duration"
+- "hasRoom"
+- "isDisabled"
+- "isOvernight"
+- "isVoucherApplicable"
+- "marketingMessage"
+- "personPrice"
+- "pierFrom"
+- "pierTo"
+- "pointsPrice"
+- "sailId"
+- "sailPackageCode"
+- "sailPackageName"
+- "shipCode"
+- "vehiclePrice"
+
+*/
+
 ?>
 ```
 
@@ -51,6 +76,17 @@ foreach($fetch_land_services as $row)
 	echo $row["title"].'<br>'; /* prints each land service title for that trip */
 	echo $row["description"].'<br>'; /* prints each land service description for that trip */
 }
+
+/* 
+List of data you can print:
+
+- "title"
+- "imageUrl"
+- "description"
+- "eventTimes"
+
+*/
+
 ?>
 ```
 
@@ -69,6 +105,17 @@ if($vehiclePrice != null) {
 		echo $row_vechicle["outwardDetails"]['price']; /* prints each price */
 	}
 }
+
+/* 
+List of data you can print:
+
+- "carCategory"
+- "licensePlates"
+- "outwardDetails"
+- "returnDetails"
+
+*/
+
 ?>
 ```
 
