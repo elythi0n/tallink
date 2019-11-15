@@ -2,30 +2,22 @@
 /**
  * Tallink API Class
  *
- * PHP version 7
+ * PHP version 5.4 - 7
  *
  *
  * @category   Tallink
  * @package    Tallink
  * @author     Marcos Raudkett <info@marcosraudkett.com>
- * @copyright  2018 Marcos Raudkett
+ * @copyright  2019 Marcos Raudkett
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @version    0.0.1
  */
 class Tallink
 {
   /**
-   * @var timetables_url url
+   * @var Tallink API endpoint
    */
-  private static $timetables_url = 'https://booking.tallink.com/api/timetables';
-  /**
-   * @var land_services_url url
-   */
-  private static $land_url = 'https://booking.tallink.com/api/land';
-  /**
-   * @var vehicle prices url
-   */
-  private static $vehicle_url = 'https://booking.tallink.com/api/vehicles';
+  private static $endpoint = 'https://booking.tallink.com/api/';
   /**
    * @var from station
    */
@@ -98,7 +90,7 @@ class Tallink
       /* parameters */
       $parameters = http_build_query($bindings);
       /* full url */
-      $api_url = static::$timetables_url.'?'.$parameters;
+      $api_url = static::$endpoint.'timetables?'.$parameters;
       /* Get Contents */
       $query = file_get_contents($api_url);
       /* Decode JSON */
@@ -178,7 +170,7 @@ class Tallink
       /* parameters */
       $parameters = http_build_query($bindings);
       /* full url */
-      $api_url = static::$vehicle_url.'?'.$parameters;
+      $api_url = static::$endpoint.'vehicles?'.$parameters;
       /* Get Contents */
       $query = file_get_contents($api_url);
       /* Decode JSON */
@@ -219,7 +211,7 @@ class Tallink
       /* parameters */
       $parameters = http_build_query($bindings);
       /* full url */
-      $api_url = static::$land_url.'?'.$parameters;
+      $api_url = static::$endpoint.'land?'.$parameters;
       /* Get Contents */
       $query = file_get_contents($api_url);
       /* Decode JSON */
