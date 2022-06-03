@@ -1,142 +1,127 @@
+# PHP client for the Tallink API
+
 This is just a test demo! do not use this in production without asking permission. (inofficial)
 
-![alt text](https://marcosraudkett.com/uploader/uploads/c21fb5d72e4935aa09ae27217dbff002.png "Preview")
+## Installation
 
 ```
-git clone https://github.com/marcosraudkett/tallink.git
+composer require marcosraudkett/tallink
 ```
 
-### Usage
+### Features
+
+- Fetch data
+  - Journeys between 2 dates with parameters
+    - Journey info
+      - Prices (with or without points)
+      - Has rooms available
+      - Piers
+      - Cities
+      - Dates
+      - etc...
+  - Hotels and information about hotels
+    - Hotel info (code, name descriptions, images, checkInTime, checkOutTime, city, rating)
+    - Availability
+    - Rooms
+    - List of cities
+  - Vehicle prices and availability by journey id
+    - Category
+    - Capacity
+    - Availability
+    - Price
+  - Land services by journey id
+- List all ports
+- Check if a port exists
+
+
+## Usage (without autoloader)
 ```php
 <?php
-  require_once 'classes/Tallink.class.php';
+  require_once "path/to/classes/Tallink.class.php";
   /* or use autoloader */
 ?>
 ```
-
 
 ### Journeys
 ```php
 <?php
 
-/* fetch journeys from tallinn to helsinki between dateFrom and dateTo */
-$fetch_journeys = new Tallink();
-  $fetch_journeys->from = 'tal';
-  $fetch_journeys->to = 'hel';
-  $fetch_journeys->oneWay = true;
-  $fetch_journeys->locale = 'en';
-  $fetch_journeys->voyageType = 'SHUTTLE';
-  $fetch_journeys->dateFrom = '2018-12-15'; /* from date */
-  $fetch_journeys->dateTo = '2018-12-18'; /* to date */
-$fetch_journeys = Tallink::fetch_journeys($fetch_journeys);
+  $journeys = marcosraudkett\Tallink::getInstance([
+      // ** minimum required params for journeys()
+      "from" => "tal",
+      "to" => "hel",
+      "dateFrom" => "2022-06-02",
+      "dateTo" => "2022-06-04",
+  ])->journeys();
 
-foreach($fetch_journeys as $row)
-{
-	echo '<br>'.$row["shipCode"]; /* prints out each journey's shipCode */
-}
-
-/* 
-List of data you can print:
-
-- "arrivalIsoDate"
-- "cityFrom"
-- "cityTo"
-- "departureIsoDate"
-- "duration"
-- "hasRoom"
-- "isDisabled"
-- "isOvernight"
-- "isVoucherApplicable"
-- "marketingMessage"
-- "personPrice"
-- "pierFrom"
-- "pierTo"
-- "pointsPrice"
-- "sailId"
-- "sailPackageCode"
-- "sailPackageName"
-- "shipCode"
-- "vehiclePrice"
-
-*/
+  // ** print journeys
+  print_r($journeys); 
 
 ?>
 ```
-
-### Land services 
-
+### Fetch data
+Doing multiple calls and printing the results
 ```php
-<?php
-$fetch_land_services = new Tallink();
-  $fetch_land_services->locale = 'en'; /* locale */
-  $fetch_land_services->country = ''; /* country */
-  $fetch_land_services->outwardSailId = '1633780'; /* outwardSailId */
-$fetch_land_services = Tallink::fetch_land_services($fetch_land_services);
+<?php 
 
-foreach($fetch_land_services as $row)
-{
-	echo $row["title"].'<br>'; /* prints each land service title for that trip */
-	echo $row["description"].'<br>'; /* prints each land service description for that trip */
-}
+  $params = [
+    // ** minimum required params for journeys()
+    "from" => "tal",
+    "to" => "hel",
+    "dateFrom" => "2022-06-02",
+    "dateTo" => "2022-06-04",
+  ];
 
-/* 
-List of data you can print:
+  $tallink = new marcosraudkett\Tallink($params);
 
-- "title"
-- "imageUrl"
-- "description"
-- "eventTimes"
+  // fetch journeys
+  $tallink->journeys();
 
-*/
+  // set outwardSailId parameter (you can get this from journeys "sailId")
+  $tallink->setParam("outwardSailId", "2195288");
 
-?>
-```
+  // fetch vehicle prices (for id 2195288)
+  $tallink->vehiclePrices();
 
-### Vehicle Prices
+  // fetch land services (for id 2195288)
+  $tallink->landServices();
 
-```php
-<?php
-$sailId = '1610238';
-$vehiclePrice = Tallink::fetch_vehicle_prices('en', 'fi', $sailId); 
+  // print out the results
+  print_r(
+    $tallink->results()
+  );
 
-if($vehiclePrice != null) {
-	foreach($vehiclePrice as $row_vechicle)
-	{
-		echo $row_vechicle["carCategory"]; /* prints each car category type */
-		echo $row_vechicle["outwardDetails"]['availability']; /* prints each availability */
-		echo $row_vechicle["outwardDetails"]['price']; /* prints each price */
-	}
-}
-
-/* 
-List of data you can print:
-
-- "carCategory"
-- "licensePlates"
-- "outwardDetails"
-- "returnDetails"
-
-*/
+  // ** to only get journeys
+  $journeys = $tallink->results()["journeys"];
 
 ?>
 ```
 
-### Get station id by name 
+Check inside `/examples` folder for more examples.
 
-```php
-<?php
-  $station_name = 'Tallinn';
-  $get_station_id_by_name = Tallink::get_station_id_by_name($station_name);
-  echo $get_station_id_by_name /* returns 'tal' */
-?>
+## Testing
+
+```
+composer test
 ```
 
-### Check if station exists
+## Changelog
 
-```php
-<?php
-  $station = 'Tallinn';
-  $check_station_exists = Tallink::check_station_exists($station);
-  echo $check_station_exists /* returns 1 */
-?>
-```
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](https://github.com/marcosraudkett/tallink/.github/blob/main/CONTRIBUTING.md) for details.
+
+## Security Vulnerabilities
+
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+
+## Credits
+
+- [Marcos Raudkett](https://github.com/marcosraudkett)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
