@@ -54,7 +54,7 @@ class Tallink
     /**
      * @var array result
      */
-    public $results;
+    public $results = [];
 
     /**
      * @var array result
@@ -62,7 +62,7 @@ class Tallink
     public $journeys;
 
     // ** singleton instance
-    private static $_instance; 
+    private static $_instance;
 
     /**
      * Get instance
@@ -78,8 +78,7 @@ class Tallink
 
     public function __construct($params)
     {
-        foreach($params as $key => $value) 
-        {
+        foreach ($params as $key => $value) {
             $this->params[$key] = $value;
         }
     }
@@ -99,11 +98,11 @@ class Tallink
     public function journeys()
     {
         /* check required parameters */
-        if ($this->isValid()) {
+        if ($this->isValid(["from", "to", "dateFrom", "dateTo"])) {
             $obj = $this->getData($this->route($this->routes["timetables"][$this->params["type"]], $this->buildQuery()));
             $daterange = new \DatePeriod(
-                new \DateTime($this->params["dateFrom"]), 
-                new \DateInterval('P1D'), 
+                new \DateTime($this->params["dateFrom"]),
+                new \DateInterval('P1D'),
                 new \DateTime($this->params["dateTo"])
             );
             $dc = 0; // ** date counter
@@ -114,7 +113,7 @@ class Tallink
                 // ** foreach trip
                 if (isset($obj['trips'][$convert_date]['outwards'])) {
                     foreach ($obj['trips'][$convert_date]['outwards'] as $tk => $trip) {
-                        foreach($trip as $key => $value) {
+                        foreach ($trip as $key => $value) {
                             $this->results["journeys"][$tk][$key] = $value;
                         }
                     }
@@ -135,7 +134,7 @@ class Tallink
      * @param date    $dateFrom   from date (format: yyyy-mm-dd) -required
      * @param date    $dateTo     to date (format: yyyy-mm-dd)
      */
-    public function hotels() 
+    public function hotels()
     {
         $obj = $this->getData($this->route($this->routes["hotels"], $this->buildQuery()));
         $this->results["hotels"]["list"] = $this->handleKeysAndValues($obj, "hotels");
@@ -149,9 +148,9 @@ class Tallink
      * @param string $locale -required
      * @param string $outwardSailId -required
      */
-    public function vehiclePrices() 
+    public function vehiclePrices()
     {
-        if ($this->isOutwardSailId()) {
+        if ($this->isValid(["outwardSailId"])) {
             $obj = $this->getData($this->route($this->routes["vehicles"], $this->buildQuery()));
             $this->results["vehicles"] = $this->handleKeysAndValues($obj, "vehicles");
             return isset($this->results["vehicles"]) ? $this->results["vehicles"] : null;
@@ -164,9 +163,9 @@ class Tallink
      * @param string locale    locale (required)
      * @param string outwardSailId    outwardSailId (required)
      */
-    public function landServices() 
+    public function landServices()
     {
-        if ($this->isOutwardSailId()) {
+        if ($this->isValid(["outwardSailId"])) {
             $obj = $this->getData($this->route($this->routes["land"], $this->buildQuery()));
             $this->results["landServices"] = $this->handleKeysAndValues($obj, "landServices");
             return isset($this->results["landServices"]) ? $this->results["landServices"] : null;
@@ -179,9 +178,9 @@ class Tallink
      * @param string locale    locale (required)
      * @param string outwardSailId    outwardSailId (required)
      */
-    public function meals() 
+    public function meals()
     {
-        if ($this->isOutwardSailId()) {
+        if ($this->isValid(["outwardSailId"])) {
             $obj = $this->getData($this->route($this->routes["meals"], $this->buildQuery()));
             $this->results["meals"] = $this->handleKeysAndValues($obj, "meals");
             return isset($this->results["meals"]) ? $this->results["meals"] : null;
@@ -191,12 +190,11 @@ class Tallink
     /**
      * Handle API results
      */
-    public function handleKeysAndValues($obj, $name) 
+    public function handleKeysAndValues($obj, $name)
     {
         $result = [];
-        foreach($obj[$name] as $lk => $land)
-        {
-            foreach($land as $key => $value) {
+        foreach ($obj[$name] as $lk => $land) {
+            foreach ($land as $key => $value) {
                 $result[$lk][$key] = $value;
             }
         }
@@ -209,7 +207,7 @@ class Tallink
      * 
      * @return array
      */
-    public function results() 
+    public function results()
     {
         return $this->results;
     }
@@ -219,7 +217,7 @@ class Tallink
      * 
      * @return string
      */
-    public function route($route, $parameters) 
+    public function route($route, $parameters)
     {
         return $this->endpoint . $route . "?" . $parameters;
     }
@@ -229,7 +227,7 @@ class Tallink
      * 
      * @return array
      */
-    public function getData($url) 
+    public function getData($url)
     {
         $query = file_get_contents($url);
         /* Decode JSON */
@@ -241,11 +239,11 @@ class Tallink
      * 
      * @return string
      */
-    public function buildQuery() 
+    public function buildQuery()
     {
         /* parameter bindings */
         $bindings = [];
-        foreach($this->params as $name => $value) {
+        foreach ($this->params as $name => $value) {
             $bindings[$name] = $value;
         }
         /* parameters */
@@ -257,18 +255,21 @@ class Tallink
      * 
      * @return boolean
      */
-    public function isValid() 
+    public function isValid($requiredParams)
     {
-        if (!isset($this->params["from"]) && 
-            !isset($this->params["to"]) && 
-            !isset($this->params["dateFrom"]) && 
-            !isset($this->params["dateTo"]) && 
-            !isset($this->params["voyageType"])
-        ) {
-            return false;
+        $missing = [];
+        foreach ($requiredParams as $param) {
+            if (!isset($this->params[$param]) || strlen($this->params[$param]) == 0) {
+                $missing[] = $param;
+            }
         }
 
-        return true;
+        if (empty($missing)) {
+            return true;
+        } else {
+            print_r(["missing_required_parameters" => $missing]);
+            return false;
+        }
     }
 
     /**
@@ -276,7 +277,7 @@ class Tallink
      * 
      * @return boolean
      */
-    public function isOutwardSailId() 
+    public function isOutwardSailId()
     {
         if (!isset($this->params["outwardSailId"])) {
             return false;
@@ -290,7 +291,7 @@ class Tallink
      * 
      * @return boolean
      */
-    public function isReturnSailId() 
+    public function isReturnSailId()
     {
         if (!isset($this->params["returnSailId"])) {
             return false;
@@ -304,11 +305,11 @@ class Tallink
      * 
      * @return void
      */
-    public function setParam($param, $value) 
+    public function setParam($param, $value)
     {
         $this->params[$param] = $value;
     }
-   
+
     /**
      *
      * Get stations
@@ -319,12 +320,12 @@ class Tallink
     {
         /* stations */
         $stations = [
-            "Helsinki", 
-            "Tallinn", 
-            "Stockholm", 
-            "Turku", 
-            "Riga", 
-            "Åland", 
+            "Helsinki",
+            "Tallinn",
+            "Stockholm",
+            "Turku",
+            "Riga",
+            "Åland",
             "Visby"
         ];
         return $stations;
@@ -351,7 +352,7 @@ class Tallink
         );
         return array_search($station_name, $stations, true);
     }
-    
+
     /**
      *
      * Check if station exists

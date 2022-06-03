@@ -1,6 +1,6 @@
 # PHP client for the Tallink API
 
-This is just a test demo! do not use this in production without asking permission. (inofficial)
+This is just a test demo! do not use this in production without asking permission from Tallink. (inofficial)
 
 ## Installation
 
