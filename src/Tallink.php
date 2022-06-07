@@ -137,10 +137,12 @@ class Tallink
     public function hotels($outwardSailId = null)
     {
         if (isset($outwardSailId)) $this->params["outwardSailId"] = $outwardSailId;
-        $obj = $this->getData($this->route($this->routes["hotels"], $this->buildQuery()));
-        $this->results["hotels"]["list"] = $this->handleKeysAndValues($obj, "hotels");
-        $this->results["hotels"]["cities"] = $this->handleKeysAndValues($obj, "cities");
-        return isset($this->results["hotels"]) ? $this->results["hotels"] : null;
+        if ($this->isValid(["departureDate", "dateFrom", "dateTo"])) {
+            $obj = $this->getData($this->route($this->routes["hotels"], $this->buildQuery()));
+            $this->results["hotels"]["list"] = $this->handleKeysAndValues($obj, "hotels");
+            $this->results["hotels"]["cities"] = $this->handleKeysAndValues($obj, "cities");
+            return isset($this->results["hotels"]) ? $this->results["hotels"] : null;
+        }
     }
 
     /**
