@@ -2,6 +2,11 @@
 
 All notable changes to Tallink PHP Client will be documented in this file.
 
+## 2.0.2 2022-06-07
+- Bug fixes
+  - Error handling for missing parameters
+  - Dates fixed in tests
+
 ## 2.0.0 2022-06-03
 
 - New routes added:
