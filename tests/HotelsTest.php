@@ -4,10 +4,9 @@ require_once dirname(__DIR__) . "/src/Tallink.php";
 
 test('Fetch hotels', function () {
     $hotels = (new marcosraudkett\Tallink([
-        "from" => "hel",
-        "to" => "tal",
-        "dateFrom" => "2022-06-02",
-        "departureDate" => "2022-06-02",
+        "departureDate" => date('Y-m-d'), // required for hotels
+        "dateFrom" => date('Y-m-d'),
+        "dateTo" => date('Y-m-d', strtotime('+4 days')),
     ]))->hotels();
   
     expect($hotels["list"][0]["code"])->toBeString();

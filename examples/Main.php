@@ -7,8 +7,8 @@ $params = [
     // ** minimum required params for journeys()
     "from" => "tal",
     "to" => "hel",
-    "dateFrom" => "2022-06-02",
-    "dateTo" => "2022-06-04",
+    "dateFrom" => date('Y-m-d'),
+    "dateTo" => date('Y-m-d', strtotime('+2 days')),
 
     // ** required for vehicle prices
     "outwardSailId" => "2195288",

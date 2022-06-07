@@ -13,7 +13,7 @@ namespace marcosraudkett;
  * @author     Marcos Raudkett <info@marcosraudkett.com>
  * @copyright  2019 - 2022 Marcos Raudkett
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
- * @version    2.0.0
+ * @version    2.0.1
  */
 class Tallink
 {
@@ -134,8 +134,9 @@ class Tallink
      * @param date    $dateFrom   from date (format: yyyy-mm-dd) -required
      * @param date    $dateTo     to date (format: yyyy-mm-dd)
      */
-    public function hotels()
+    public function hotels($outwardSailId = null)
     {
+        if (isset($outwardSailId)) $this->params["outwardSailId"] = $outwardSailId;
         $obj = $this->getData($this->route($this->routes["hotels"], $this->buildQuery()));
         $this->results["hotels"]["list"] = $this->handleKeysAndValues($obj, "hotels");
         $this->results["hotels"]["cities"] = $this->handleKeysAndValues($obj, "cities");
@@ -148,8 +149,9 @@ class Tallink
      * @param string $locale -required
      * @param string $outwardSailId -required
      */
-    public function vehiclePrices()
+    public function vehiclePrices($outwardSailId = null)
     {
+        if (isset($outwardSailId)) $this->params["outwardSailId"] = $outwardSailId;
         if ($this->isValid(["outwardSailId"])) {
             $obj = $this->getData($this->route($this->routes["vehicles"], $this->buildQuery()));
             $this->results["vehicles"] = $this->handleKeysAndValues($obj, "vehicles");
@@ -163,8 +165,9 @@ class Tallink
      * @param string locale    locale (required)
      * @param string outwardSailId    outwardSailId (required)
      */
-    public function landServices()
+    public function landServices($outwardSailId = null)
     {
+        if (isset($outwardSailId)) $this->params["outwardSailId"] = $outwardSailId;
         if ($this->isValid(["outwardSailId"])) {
             $obj = $this->getData($this->route($this->routes["land"], $this->buildQuery()));
             $this->results["landServices"] = $this->handleKeysAndValues($obj, "landServices");
@@ -178,8 +181,9 @@ class Tallink
      * @param string locale    locale (required)
      * @param string outwardSailId    outwardSailId (required)
      */
-    public function meals()
+    public function meals($outwardSailId = null)
     {
+        if (isset($outwardSailId)) $this->params["outwardSailId"] = $outwardSailId;
         if ($this->isValid(["outwardSailId"])) {
             $obj = $this->getData($this->route($this->routes["meals"], $this->buildQuery()));
             $this->results["meals"] = $this->handleKeysAndValues($obj, "meals");

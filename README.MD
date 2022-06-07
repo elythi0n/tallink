@@ -83,6 +83,9 @@ Doing multiple calls and printing the results
   // fetch vehicle prices (for id 2195288)
   $tallink->vehiclePrices();
 
+  // or set the id 2195288
+  $tallink->vehiclePrices("2195288");
+
   // fetch land services (for id 2195288)
   $tallink->landServices();
 
@@ -98,6 +101,38 @@ Doing multiple calls and printing the results
 ```
 
 Check inside `/examples` folder for more examples.
+
+## Available methods
+<table>
+  <thead>
+    <tr>
+      <th>Function</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>journeys</td>
+      <td>Get the list of journeys</td>
+    </tr>
+    <tr>
+      <td>vehiclePrices</td>
+      <td>Get vehicle availability and prices</td>
+    </tr>
+    <tr>
+      <td>landSerivces</td>
+      <td>Land services</td>
+    </tr>
+    <tr>
+      <td>meals</td>
+      <td>Get meals for the joruney</td>
+    </tr>
+    <tr>
+      <td>hotels</td>
+      <td>Get the list of hotels and availability</td>
+    </tr>
+  </tbody>
+</table>
 
 ## Testing
 

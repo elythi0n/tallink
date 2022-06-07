@@ -3,10 +3,9 @@
 require_once "../src/Tallink.php";
 
 $hotels = marcosraudkett\Tallink::getInstance([
-    "from" => "hel",
-    "to" => "tal",
-    "dateFrom" => "2022-06-02",
-    "departureDate" => "2022-06-02",
+    "departureDate" => date('Y-m-d'), // required for hotels
+    "dateFrom" => date('Y-m-d'),
+    "dateTo" => date('Y-m-d', strtotime('+4 days')),
 ])->hotels();
 
 // ** hotels
