@@ -10,3 +10,8 @@ phpunit.xml
 psalm.xml
 vendor
 .php-cs-fixer.cache
+
+# experimental
+/src/Authentication.php
+/examples/playground.php
+/examples/Authenticate.php

@@ -9,7 +9,7 @@ $params = [
 ];
 
 // ** journey vehicle prices and availability
-$vehicles = marcosraudkett\Tallink::getInstance($params)->vehiclePrices();
+$vehicles = marcosraudkett\Tallink::getInstance()->setParams($params)->vehiclePrices();
 
 // ** vehicles
 print_r($vehicles);

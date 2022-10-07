@@ -11,7 +11,7 @@ $params = [
     "dateTo" => date('Y-m-d', strtotime('+2 days')),
 ];
 
-$journeys = marcosraudkett\Tallink::getInstance($params)->journeys();
+$journeys = marcosraudkett\Tallink::getInstance()->setParams($params)->journeys();
 
 // ** journeys
 print_r($journeys);

@@ -3,13 +3,13 @@
 require_once dirname(__DIR__) . "/src/Tallink.php";
 
 test('Fetch journeys', function () {
-    $journeys = (new marcosraudkett\Tallink([
+    $journeys = (new marcosraudkett\Tallink())->setParams([
         // ** minimum required params for journeys()
         "from" => "tal",
         "to" => "hel",
         "dateFrom" => date('Y-m-d'),
         "dateTo" => date('Y-m-d', strtotime('+2 days')),
-    ]))->journeys();
+    ])->journeys();
 
-    expect($journeys[0]["sailId"])->toBeInt();
+    expect($journeys[0][0]["sailId"])->toBeInt();
 });

@@ -14,7 +14,10 @@ $params = [
     "outwardSailId" => "2195288",
 ];
 
-$tallink = new marcosraudkett\Tallink($params);
+$tallink = new marcosraudkett\Tallink();
+
+// set params
+$tallink->setParams($params);
 
 // ** journeys
 $journeys = $tallink->journeys();

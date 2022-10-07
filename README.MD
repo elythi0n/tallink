@@ -39,7 +39,7 @@ composer require marcosraudkett/tallink
 ## Usage (without autoloader)
 ```php
 <?php
-  require_once "path/to/classes/Tallink.class.php";
+  require_once "path/to/classes/Tallink.php";
   /* or use autoloader */
 ?>
 ```
@@ -48,13 +48,14 @@ composer require marcosraudkett/tallink
 ```php
 <?php
 
-  $journeys = marcosraudkett\Tallink::getInstance([
+  $params = [
       // ** minimum required params for journeys()
       "from" => "tal",
       "to" => "hel",
       "dateFrom" => "2022-06-02",
       "dateTo" => "2022-06-04",
-  ])->journeys();
+  ];
+  $journeys = marcosraudkett\Tallink::getInstance()->setParams($params)->journeys();
 
   // ** print journeys
   print_r($journeys); 
@@ -74,13 +75,21 @@ Doing multiple calls and printing the results
     "dateTo" => "2022-06-04",
   ];
 
-  $tallink = new marcosraudkett\Tallink($params);
+  $tallink = new marcosraudkett\Tallink();
+
+  $tallink->setParams($params)
 
   // fetch journeys
   $tallink->journeys();
 
   // set outwardSailId parameter (you can get this from journeys "sailId")
   $tallink->setParam("outwardSailId", "2195288");
+
+  // you can also set multiple params using setParams
+  $tallink->setParams([
+      "outwardSailId" => "2195288",
+      // ** other parameters
+  ]);
 
   // fetch vehicle prices (for id 2195288)
   $tallink->vehiclePrices();
@@ -96,8 +105,8 @@ Doing multiple calls and printing the results
     $tallink->results()
   );
 
-  // ** to only get journeys
-  $journeys = $tallink->results()["journeys"];
+  // ** to only get journeys (the 0 key indicates request count)
+  $journeys = $tallink->results()["journeys"][0];
 
 ?>
 ```
@@ -127,11 +136,19 @@ Check inside `/examples` folder for more examples.
     </tr>
     <tr>
       <td>meals</td>
-      <td>Get meals for the joruney</td>
+      <td>Get meals for the journey</td>
     </tr>
     <tr>
       <td>hotels</td>
       <td>Get the list of hotels and availability</td>
+    </tr>
+    <tr>
+      <td>onboardServices</td>
+      <td>Get list of services onboard a journey</td>
+    </tr>
+    <tr>
+      <td>travelClasses</td>
+      <td>Get travel classes for a journey</td>
     </tr>
   </tbody>
 </table>

@@ -9,7 +9,7 @@ $params = [
 ];
 
 // ** land services
-$landServices = marcosraudkett\Tallink::getInstance($params)->landServices();
+$landServices = marcosraudkett\Tallink::getInstance()->setParams($params)->landServices();
 
 // ** land services
 print_r($landServices);
