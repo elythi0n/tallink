@@ -11,7 +11,7 @@ namespace marcosraudkett;
  * @category   Tallink
  * @package    Tallink
  * @author     Marcos Raudkett <info@marcosraudkett.com>
- * @copyright  2019 - 2022 Marcos Raudkett
+ * @copyright  2019 - 2023 Marcos Raudkett
  * @license    http://www.opensource.org/licenses/mit-license.html MIT License
  * @version    2.1.0
  */

@@ -36,79 +36,67 @@ composer require marcosraudkett/tallink
 - Check if a port exists
 
 
-## Usage (without autoloader)
-```php
-<?php
-  require_once "path/to/classes/Tallink.php";
-  /* or use autoloader */
-?>
-```
+## Usage 
 
 ### Journeys
 ```php
-<?php
+use marcosraudkett\Tallink;
 
-  $params = [
-      // ** minimum required params for journeys()
-      "from" => "tal",
-      "to" => "hel",
-      "dateFrom" => "2022-06-02",
-      "dateTo" => "2022-06-04",
-  ];
-  $journeys = marcosraudkett\Tallink::getInstance()->setParams($params)->journeys();
-
-  // ** print journeys
-  print_r($journeys); 
-
-?>
-```
-### Fetch data
-Doing multiple calls and printing the results
-```php
-<?php 
-
-  $params = [
+$params = [
     // ** minimum required params for journeys()
     "from" => "tal",
     "to" => "hel",
     "dateFrom" => "2022-06-02",
     "dateTo" => "2022-06-04",
-  ];
+];
+$journeys = Tallink::getInstance()->setParams($params)->journeys();
 
-  $tallink = new marcosraudkett\Tallink();
+// ** print journeys
+print_r($journeys); 
+```
+### Fetch data
+Doing multiple calls and printing the results
+```php
+$params = [
+  // ** minimum required params for journeys()
+  "from" => "tal",
+  "to" => "hel",
+  "dateFrom" => "2022-06-02",
+  "dateTo" => "2022-06-04",
+];
 
-  $tallink->setParams($params)
+$tallink = new marcosraudkett\Tallink();
 
-  // fetch journeys
-  $tallink->journeys();
+$tallink->setParams($params)
 
-  // set outwardSailId parameter (you can get this from journeys "sailId")
-  $tallink->setParam("outwardSailId", "2195288");
+// fetch journeys
+$tallink->journeys();
 
-  // you can also set multiple params using setParams
-  $tallink->setParams([
-      "outwardSailId" => "2195288",
-      // ** other parameters
-  ]);
+// set outwardSailId parameter (you can get this from journeys "sailId")
+$tallink->setParam("outwardSailId", "2195288");
 
-  // fetch vehicle prices (for id 2195288)
-  $tallink->vehiclePrices();
+// you can also set multiple params using setParams
+$tallink->setParams([
+    "outwardSailId" => "2195288",
+    // ** other parameters
+]);
 
-  // or set the id 2195288
-  $tallink->vehiclePrices("2195288");
+// fetch vehicle prices (for id 2195288)
+$tallink->vehiclePrices();
 
-  // fetch land services (for id 2195288)
-  $tallink->landServices();
+// or set the id 2195288
+$tallink->vehiclePrices("2195288");
 
-  // print out the results
-  print_r(
-    $tallink->results()
-  );
+// fetch land services (for id 2195288)
+$tallink->landServices();
 
-  // ** to only get journeys (the 0 key indicates request count)
-  $journeys = $tallink->results()["journeys"][0];
+// print out the results
+print_r(
+  $tallink->results()
+);
 
-?>
+// ** to only get journeys (the 0 key indicates request count)
+$journeys = $tallink->results()["journeys"][0];
 ```
 
 Check inside `/examples` folder for more examples.

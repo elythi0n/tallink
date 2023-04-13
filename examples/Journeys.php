@@ -1,6 +1,8 @@
 <?php
 
-require_once "../src/Tallink.php";
+require_once dirname(__DIR__) . "/src/Tallink.php";
+
+use marcosraudkett\Tallink;
 
 // ** parameters
 $params = [
@@ -11,7 +13,7 @@ $params = [
     "dateTo" => date('Y-m-d', strtotime('+2 days')),
 ];
 
-$journeys = marcosraudkett\Tallink::getInstance()->setParams($params)->journeys();
+$journeys = Tallink::getInstance()->setParams($params)->journeys();
 
 // ** journeys
 print_r($journeys);

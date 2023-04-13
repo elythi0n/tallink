@@ -1,6 +1,6 @@
 <?php
 
-require_once "../src/Tallink.php";
+require_once dirname(__DIR__) . "/src/Tallink.php";
 
 $hotels = marcosraudkett\Tallink::getInstance()->setParams([
     "departureDate" => date('Y-m-d'), // required for hotels

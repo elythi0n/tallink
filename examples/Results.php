@@ -1,6 +1,6 @@
 <?php
 
-require_once "../src/Tallink.php";
+require_once dirname(__DIR__) . "/src/Tallink.php";
 
 $params = [
     // ** minimum required params for journeys()
