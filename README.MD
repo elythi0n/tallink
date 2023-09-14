@@ -9,18 +9,6 @@ This is an unofficial Tallink PHP SDK and should not be used in production witho
 ```
 composer require marcosraudkett/tallink
 ```
-
-### Features
-
-- Fetch data such as:
-  - Journeys  
-  - Hotels and information about hotels
-  - Vehicle availability & pricing
-  - Travel classes
-  - Land services 
-  - Onboard services 
-  - Meal plans 
-
 ## Usage 
 
 Example on how to fetch journeys
