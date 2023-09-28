@@ -16,22 +16,17 @@ class GetHotelsRequest extends Request
     protected Method $method = Method::GET;
 
     public function __construct(
-        public string $outwardSailId,
         public $dateFrom,
         public ?string $locale = null,
-        public ?string $departureDate = null,
     ){
         if (!$locale) {
             $this->locale = Locale::ENGLISH;
         }
-
-        $departureDate = $dateFrom;
     }
 
     protected function defaultQuery(): array
     {
         return [
-            'outwardSailId' => $this->outwardSailId,
             'locale' => $this->locale,
             'dateFrom' => $this->dateFrom,
             'departureDate' => $this->dateFrom,
