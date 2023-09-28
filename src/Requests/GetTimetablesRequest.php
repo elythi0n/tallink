@@ -39,11 +39,11 @@ class GetTimetablesRequest extends Request
         }
 
         if (!$from) {
-            $this->from = Station::HEL;
+            $this->from = Station::HELSINKI;
         }
 
         if (!$to) {
-            $this->to = Station::TAL;
+            $this->to = Station::TALLINN;
         }
 
         $departureDate = $dateFrom;

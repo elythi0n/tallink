@@ -20,16 +20,16 @@ composer require marcosraudkett/tallink
 Example on how to fetch journeys
 ### Journeys
 ```php
-use marcosraudkett\Tallink\Enums\VoyageType;
-use marcosraudkett\Tallink\Enums\Locale;
-use marcosraudkett\Tallink\Enums\Station;
+use marcosraudkett\Tallink\Constants\Voyage;
+use marcosraudkett\Tallink\Constants\Locale;
+use marcosraudkett\Tallink\Constants\Station;
 use marcosraudkett\Tallink\Requests\GetTimetablesRequest;
 use marcosraudkett\Tallink\Tallink;
 
 $tallink = new Tallink;
 $response = $tallink->send(new GetTimetablesRequest(
     oneWay: true,
-    voyageType: VoyageType::SHUTTLE,
+    voyageType: Voyage::SHUTTLE,
     dateFrom: date('Y-m-d'),
     dateTo: date('Y-m-d', strtotime('+2 days')),
     from: Station::HELSINKI, // hel

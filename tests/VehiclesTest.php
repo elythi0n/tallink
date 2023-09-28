@@ -2,7 +2,7 @@
 
 require_once dirname(__DIR__). "/vendor/autoload.php";
 
-test('Fetch timetables', function () {
+test('Fetch vehicles & vehicle pricing', function () {
     $tallink = new marcosraudkett\Tallink\Tallink;
     $request = new marcosraudkett\Tallink\Requests\GetVehiclesRequest(
         outwardSailId: "2195288",
