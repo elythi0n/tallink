@@ -2,6 +2,13 @@
 
 All notable changes to Tallink PHP Client will be documented in this file.
 
+## 3.0.0 2023-09-17
+
+⚠️ This version has major breaking changes compared to the previous one. The whole structure has been changed and migrated to Saloon v2.
+
+- Migration to [Saloon v2](https://docs.saloon.dev/).
+- Added more routes.
+
 ## 2.1.0 2022-10-07
 
 - Minor improvements
