@@ -2,7 +2,7 @@
 
 namespace marcosraudkett\Tallink\Requests;
 
-use marcosraudkett\Tallink\Enums\Locale;
+use marcosraudkett\Tallink\Constants\Locale;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 

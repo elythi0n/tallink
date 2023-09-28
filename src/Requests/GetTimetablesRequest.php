@@ -2,10 +2,9 @@
 
 namespace marcosraudkett\Tallink\Requests;
 
-use marcosraudkett\Tallink\Enums\Locale;
-use marcosraudkett\Tallink\Enums\Station;
-use marcosraudkett\Tallink\Enums\VoyageType;
-use marcosraudkett\Tallink\Responses\GetTimetablesResponse;
+use marcosraudkett\Tallink\Constants\Locale;
+use marcosraudkett\Tallink\Constants\Station;
+use marcosraudkett\Tallink\Constants\Voyage;
 use Saloon\Enums\Method;
 use Saloon\Http\Request;
 
@@ -32,7 +31,7 @@ class GetTimetablesRequest extends Request
         public ?bool $includeRegularCabins = true,
     ){
         if (!$voyageType) {
-            $this->voyageType = VoyageType::SHUTTLE;
+            $this->voyageType = Voyage::SHUTTLE;
         }
         
         if (!$locale) {
@@ -40,11 +39,11 @@ class GetTimetablesRequest extends Request
         }
 
         if (!$from) {
-            $this->from = Station::HELSINKI;
+            $this->from = Station::HEL;
         }
 
         if (!$to) {
-            $this->to = Station::TALLINN;
+            $this->to = Station::TAL;
         }
 
         $departureDate = $dateFrom;

@@ -4,6 +4,12 @@
 
 This is an unofficial Tallink PHP SDK and should not be used in production without asking permission from Tallink.
 
+## Requirements
+
+- PHP 8.1+
+
+If you're using an older version of PHP then you can use the [2.1.0](https://github.com/marcosraudkett/tallink/releases/tag/2.1.0) version.
+
 ## Installation
 
 ```
