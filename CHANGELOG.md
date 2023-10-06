@@ -2,7 +2,13 @@
 
 All notable changes to Tallink PHP Client will be documented in this file.
 
-## 3.0.0 2023-09-17
+## v2023.10
+
+🧹 Chore:
+
+- Dependencies: Update [Saloon](https://docs.saloon.dev/) to v3.
+  
+## v2023.09 
 
 ⚠️ This version has major breaking changes compared to the previous one. The whole structure has been changed and migrated to Saloon v2.
 

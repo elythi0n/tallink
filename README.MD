@@ -8,7 +8,7 @@ This is an unofficial Tallink PHP SDK and should not be used in production witho
 
 - PHP 8.1+
 
-If you're using an older version of PHP then you can use the [2.1.0](https://github.com/marcosraudkett/tallink/releases/tag/2.1.0) version.
+If you're using an older version of PHP then you can use the [2.1.0](https://github.com/marcosraudkett/tallink/releases/tag/2.1.0) version but it's highly recommended that you use the latest version.
 
 ## Installation
 
@@ -40,7 +40,7 @@ $response = $tallink->send(new GetTimetablesRequest(
 print_r($journeys->json()); 
 ```
 
-Check inside `/examples` folder for more examples.
+Check inside [/examples](/examples/) folder for more.
 
 ## Available requests
 
@@ -67,12 +67,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/marcosraudkett/tallink/.github/blob/main/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
+Feel free to open a pull request or report an issue.
 ## Credits
 
 - [Marcos Raudkett](https://github.com/marcosraudkett)
