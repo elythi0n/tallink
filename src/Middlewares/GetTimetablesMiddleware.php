@@ -6,7 +6,7 @@ use Saloon\Contracts\Response;
 use Saloon\Contracts\ResponseMiddleware;
 
 /**
- * TODO: convert timetables response into an easier structure.
+ * TODO: convert timetables response into an easier structure & migrate to saloon v3.
  */
 class GetTimetablesMiddleware implements ResponseMiddleware
 {
