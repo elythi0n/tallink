@@ -22,7 +22,7 @@
         "allow-plugins": true
     },
     "require": {
-        "saloonphp/saloon": "^2.0"
+        "saloonphp/saloon": "^3.0"
     },
     "require-dev": {
         "pestphp/pest": "^1.20"
